@@ -19,10 +19,11 @@ namespace Laboratorio6RobertoVergaraC
         {
             this.name = name;
             this.rut = rut;
-            this.divisions = divisions;
+            this.Divisions = divisions;
         }
 
         public string Name { get => name; set => name = value; }
         public string Rut { get => rut; set => rut = value; }
+        public List<División> Divisions { get => divisions; set => divisions = value; }
     }
 }

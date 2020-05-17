@@ -29,42 +29,39 @@ namespace Laboratorio6RobertoVergaraC
 
             Empresa empresa = new Empresa();
 
-            while (true)
+            Console.WriteLine("¿Quiere utilizar un archivo para cargar la informaciónde la empresa? (si) (no)");
+            Console.WriteLine("Para salir del programa ponga c");
+            string des = Console.ReadLine();
+            if (des == "si")
             {
-                Console.WriteLine("Seleccione la opción que desee:");
-                Console.WriteLine("(a) Utilizar archivo existente\n(b) Crear empresa nueva\n(d) Salir");
-                string des = Console.ReadLine();
-                if (des == "a")
+                try
                 {
-                    try
-                    {
-                        LoadCompanyInformation(empresa);
-                    }
-                    catch (FileNotFoundException e)
-                    {
-                        Console.WriteLine("\nNo se pudo abrir el archivo");
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine("\nLa opción seleccionada no es válida, ya que no hay ningún archivo guardado");
-                        empresa = Create(jefes, obreros);
-                    }
-                    ShowEmpresa(empresa);
+                    LoadCompanyInformation(empresa);
                 }
-                else if (des == "b")
+                catch (FileNotFoundException e)
                 {
-                    Create(jefes,obreros);
+                    Console.WriteLine("\nNo se pudo abrir el archivo");
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("\nLa opción seleccionada no es válida, ya que no hay ningún archivo guardado");
+                    empresa = Create(jefes, obreros);
                 }
-                else if (des == "d")
+                ShowEmpresa(empresa);
+            }
+            else if (des == "no")
+            {
+                empresa = Create(jefes,obreros);
+                ShowEmpresa(empresa);
+            }
+            else if (des == "c")
+            {
+                if (empresa.Name != null && empresa.Rut != null)
                 {
-                    if (empresa.Name != null && empresa.Rut != null)
-                    {
-                        SaveCompanyInformation(empresa);
-                    }
-                    break;
+                    SaveCompanyInformation(empresa);
                 }
-                else
-                {
-                    Console.WriteLine("\nLa opción seleccionada no es válida, por favor seleccionar una que si lo sea\n");
-                }
+            }
+            else
+            {
+                Console.WriteLine("\nLa opción seleccionada no es válida, por favor seleccionar una que si lo sea\n");
             }
         }
 
@@ -81,8 +78,10 @@ namespace Laboratorio6RobertoVergaraC
             obreros2 = DesordenarLista(obreros);
             Departamento depto = new Departamento("Departamento BASE", jefes2[0]);
             Sección secc = new Sección("Sección BASE", jefes2[1]);
-            Bloque bloq1 = new Bloque("Bloque BASE 1", jefes2[2], new List<Persona>() {obreros2[0],obreros2[1] });
-            Bloque bloq2 = new Bloque("Bloque BASE 2", jefes2[3], new List<Persona>() { obreros2[2], obreros2[3] });
+            List<Persona> bloque1 = new List<Persona>() { obreros2[0], obreros2[1] };
+            Bloque bloq1 = new Bloque("Bloque BASE 1", jefes2[2], bloque1);
+            List<Persona> bloque2 = new List<Persona>() { obreros2[2], obreros2[3] };
+            Bloque bloq2 = new Bloque("Bloque BASE 2", jefes2[3], bloque2);
             Empresa empresa = new Empresa(name, rut,new List<División>() {depto,secc,bloq1,bloq2 });
             return empresa;
         }
@@ -105,7 +104,24 @@ namespace Laboratorio6RobertoVergaraC
 
         public static void ShowEmpresa(Empresa empresa)
         {
-
+            Console.WriteLine("\nNombre: "+empresa.Name);
+            Console.WriteLine("Rut: " + empresa.Rut);
+            Console.WriteLine("\nDivisiones:");
+            foreach (División div in empresa.Divisions)
+            {
+                Console.WriteLine("\nTipo División: " + div.Type1);
+                Console.WriteLine("Nombre Divisón: " + div.Name);
+                Console.WriteLine("Encargado División: " + div.InCharge.Name + " " + div.InCharge.SurName + "(Rut: " + div.InCharge.Rut + ")");
+                if (div.GetType() == typeof(Bloque))
+                {
+                    Console.WriteLine("Obreros:");
+                    foreach (Persona per in div.GeneralPersonal)
+                    {
+                        Console.WriteLine("-" + per.Name + " " + per.SurName + "(Rut: " + per.Rut + ")");
+                    }
+                }
+            }
+            Console.WriteLine("\n");
         }
 
         public static List<Persona> DesordenarLista<Persona>(List<Persona> personas)

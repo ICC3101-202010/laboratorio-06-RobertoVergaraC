@@ -16,10 +16,15 @@ namespace Laboratorio6RobertoVergaraC
 
         public Persona(string name, string surName, string rut, string charge)
         {
-            this.name = name;
-            this.surName = surName;
-            this.rut = rut;
-            this.charge = charge;
+            this.Name = name;
+            this.SurName = surName;
+            this.Rut = rut;
+            this.Charge = charge;
         }
+
+        public string Name { get => name; set => name = value; }
+        public string SurName { get => surName; set => surName = value; }
+        public string Rut { get => rut; set => rut = value; }
+        public string Charge { get => charge; set => charge = value; }
     }
 }

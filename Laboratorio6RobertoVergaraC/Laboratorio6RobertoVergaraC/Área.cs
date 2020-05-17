@@ -14,6 +14,8 @@ namespace Laboratorio6RobertoVergaraC
         {
             this.Name = Name;
             this.InCharge = InCharge;
+            this.Type1 = "Área";
         }
+
     }
 }
