@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Laboratorio6RobertoVergaraC
 {
+    [Serializable]
     class Sección: División
     {
-
+        public Sección(string Name, Persona InCharge) : base(Name, InCharge)
+        {
+            this.Name = Name;
+            this.InCharge = InCharge;
+        }
     }
 }
