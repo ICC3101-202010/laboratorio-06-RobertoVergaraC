@@ -6,24 +6,16 @@ using System.Threading.Tasks;
 
 namespace Laboratorio6RobertoVergaraC
 {
-    [Serializable]
-    class Empresa
+    class Persona
     {
         private string name;
+        private string surName;
         private string rut;
-        private List<División> divisions;
+        private string charge;
 
         public string Name { get => name; set => name = value; }
+        public string SurName { get => surName; set => surName = value; }
         public string Rut { get => rut; set => rut = value; }
-
-        public Empresa() { }
-        
-        public Empresa(string name, string rut)
-        {
-            Name = name;
-            Rut = rut;
-        }
-
-
+        public string Charge { get => charge; set => charge = value; }
     }
 }
