@@ -30,7 +30,6 @@ namespace Laboratorio6RobertoVergaraC
             Empresa empresa = new Empresa();
 
             Console.WriteLine("¿Quiere utilizar un archivo para cargar la informaciónde la empresa? (si) (no)");
-            Console.WriteLine("Para salir del programa ponga c");
             string des = Console.ReadLine();
             if (des == "si")
             {
@@ -43,26 +42,23 @@ namespace Laboratorio6RobertoVergaraC
                     Console.WriteLine("\nNo se pudo abrir el archivo");
                     Console.WriteLine(e.Message);
                     Console.WriteLine("\nLa opción seleccionada no es válida, ya que no hay ningún archivo guardado");
-                    empresa = Create(jefes, obreros);
+                    Empresa empresa2 = Create(jefes, obreros);
+                    ShowEmpresa(empresa2);
+                    SaveCompanyInformation(empresa2);
                 }
-                ShowEmpresa(empresa);
             }
             else if (des == "no")
             {
-                empresa = Create(jefes,obreros);
-                ShowEmpresa(empresa);
-            }
-            else if (des == "c")
-            {
-                if (empresa.Name != null && empresa.Rut != null)
-                {
-                    SaveCompanyInformation(empresa);
-                }
+                Empresa empresa2 = Create(jefes,obreros);
+                ShowEmpresa(empresa2);
+                SaveCompanyInformation(empresa2);
             }
             else
             {
                 Console.WriteLine("\nLa opción seleccionada no es válida, por favor seleccionar una que si lo sea\n");
             }
+            Console.WriteLine("Se ha guardado la información de la empresa...");
+            Console.ReadLine();
         }
 
         static private Empresa Create(List<Persona> jefes,List<Persona> obreros)
@@ -100,12 +96,14 @@ namespace Laboratorio6RobertoVergaraC
             Stream stream = new FileStream("empresa.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
             empresa = (Empresa)formatter.Deserialize(stream);
             stream.Close();
+            ShowEmpresa(empresa);
         }
 
         public static void ShowEmpresa(Empresa empresa)
         {
-            Console.WriteLine("\nNombre: "+empresa.Name);
-            Console.WriteLine("Rut: " + empresa.Rut);
+            Console.WriteLine("\n-----------------------------------------------------");
+            Console.WriteLine("\nNOMBRE EMPRESA: "+empresa.Name);
+            Console.WriteLine("RUT EMPRESA: " + empresa.Rut);
             Console.WriteLine("\nDivisiones:");
             foreach (División div in empresa.Divisions)
             {

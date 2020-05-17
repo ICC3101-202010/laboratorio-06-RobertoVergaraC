@@ -13,17 +13,17 @@ namespace Laboratorio6RobertoVergaraC
         private string rut;
         private List<División> divisions;
 
+        public string Name { get => name; set => name = value; }
+        public string Rut { get => rut; set => rut = value; }
+        public List<División> Divisions { get => divisions; set => divisions = value; }
+
         public Empresa() { }
         
         public Empresa(string name, string rut, List<División> divisions)
         {
             this.name = name;
             this.rut = rut;
-            this.Divisions = divisions;
+            this.divisions = divisions;
         }
-
-        public string Name { get => name; set => name = value; }
-        public string Rut { get => rut; set => rut = value; }
-        public List<División> Divisions { get => divisions; set => divisions = value; }
     }
 }
